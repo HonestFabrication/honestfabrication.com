@@ -1,0 +1,104 @@
+/* the variables! */
+$pipeWidth: 30px;
+$cornerWidth: 30px;
+$offset: ($cornerWidth - $pipeWidth) / 2;
+$pipeBorder: solid #000;
+$pipeBorderWidth: 5px;
+
+/* the mixin, to generate colors and borders */
+@mixin pipe($type:false) {
+	background: #333;
+
+	@if ($type == vertical) {
+		border-left: $pipeBorderWidth $pipeBorder;
+		border-right: $pipeBorderWidth $pipeBorder;
+	}
+	@else if $type == horizontal {
+		border-top: ($pipeBorderWidth * 2) $pipeBorder;
+		border-bottom: ($pipeBorderWidth * 2) $pipeBorder;
+		outline: $pipeBorderWidth solid white;
+		outline-offset: -($pipeBorderWidth - 1);
+		z-index: 0;
+	}
+	@else {
+		border: $pipeBorderWidth $pipeBorder;
+	}
+}
+
+/* absolute-positioned container to hold all the pipes */
+.pipe-container {
+	box-sizing: border-box;
+	padding: 10px;
+	position: absolute;
+	top: 10px;
+	width: 100%;
+
+	.pipe {
+		display: inline-block;
+		position: relative;
+		box-sizing: border-box;
+
+		// pipes come in three flavors: vertical, horizontal, and corner.
+		&.vertical {
+			@include pipe(vertical);
+			display: block;
+			width: $pipeWidth;
+			margin-left: $pipeBorderWidth;
+		}
+
+		&.horizontal {
+			@include pipe(horizontal);
+			height: $pipeWidth;
+			margin-bottom: $pipeBorderWidth;
+		}
+
+		// corner pipes come in four flavors for each corner
+		&.corner {
+			z-index: 20;
+
+			&:after {
+				content: '';
+				@include pipe();
+				display: block;
+				@include square($cornerWidth);
+			}
+			
+			&.bottom-left:after {
+				border-bottom-left-radius: $cornerWidth;
+				margin-right: -($pipeBorderWidth - 1);
+			}
+			&.bottom-right:after {
+				border-bottom-right-radius: $cornerWidth;
+				margin-left: -($pipeBorderWidth - 1);
+			}
+			&.top-left:after {
+				border-top-left-radius: $cornerWidth;
+				margin-right: -($pipeBorderWidth - 1);
+			}
+			&.top-right:after {
+				border-top-right-radius: $cornerWidth;
+				margin-left: -($pipeBorderWidth - 1);
+			}
+		}
+	}
+	.corner + .vertical {
+		margin-top: -5px;
+	}
+
+	// right-aligned pipe using relative position and negative margin
+	.right {
+		left: 100%;
+		margin-left: -$pipeWidth - $pipeBorderWidth !important;
+	}
+
+	/* a pipe-row displays all the containing pipes as table-cells,
+	 * useful for variable-width horizontal pipe capped with corners.
+	 */
+	.pipe-row {
+		display: table-row;
+		.pipe {
+			display: table-cell;
+		}
+	}
+
+}
