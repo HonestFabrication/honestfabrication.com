@@ -1,6 +1,32 @@
 @import 'sass-bootstrap/lib/bootstrap';
 @import 'pipes';
 
+/* ---------------- FONTS ----------------- */
+$affectBold: "affect-bold";
+@font-face {
+	font-family: 'Affect-Bold';
+	src: url('fonts/affect-bold.eot');
+	src: url('fonts/affect-bold.eot?#iefix') format('embedded-opentype'),
+		 url('fonts/affect-bold.woff') format('woff'),
+		 url('fonts/affect-bold.ttf') format('truetype');}
+
+@font-face {
+    font-family: 'CassiaExtraLight';
+    src: url('fonts/cassia-extra-light.eot');
+    src: url('fonts/cassia-extra-light.eot?#iefix') format('embedded-opentype'),
+     url('fonts/cassia-extra-light.woff') format('woff'),
+     url('fonts/cassia-extra-light.ttf') format('truetype');
+}
+
+h1 {
+	font-family: 'Affect-Bold', sans-serif;
+	text-transform: uppercase;
+}
+
+body {
+	font-family: 'CassiaExtraLight', Georgia, serif;
+}
+
 .hero-unit {
     margin: 50px auto 0 auto;
     width: 300px;
