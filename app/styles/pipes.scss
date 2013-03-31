@@ -27,6 +27,7 @@ $pipeBorderWidth: 5px;
 
 /* absolute-positioned container to hold all the pipes */
 .pipe-container {
+	display: none;
 	box-sizing: border-box;
 	padding: 10px;
 	position: absolute;

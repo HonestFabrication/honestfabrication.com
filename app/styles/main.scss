@@ -14,20 +14,81 @@ $affectBold: "affect-bold";
     font-family: 'CassiaExtraLight';
     src: url('fonts/cassia-extra-light.eot');
     src: url('fonts/cassia-extra-light.eot?#iefix') format('embedded-opentype'),
-     url('fonts/cassia-extra-light.woff') format('woff'),
-     url('fonts/cassia-extra-light.ttf') format('truetype');
+    	 url('fonts/cassia-extra-light.woff') format('woff'),
+    	 url('fonts/cassia-extra-light.ttf') format('truetype');
 }
 
-h1 {
-	font-family: 'Affect-Bold', sans-serif;
-	text-transform: uppercase;
-}
-
+/* ---------------- STYLES ---------------- */
 body {
 	font-family: 'CassiaExtraLight', Georgia, serif;
 }
 
-.hero-unit {
-    margin: 50px auto 0 auto;
-    width: 300px;
+$bigPadding: 30px;
+
+$titleFontSize: 72px;
+$taglineFontSize: 28px;
+$emailFontSize: 32px;
+
+header {
+	margin: $bigPadding 0;
+	text-align: center;
+
+	h1 {
+		margin: 0;
+		font-family: 'Affect-Bold', sans-serif;
+		font-size: $titleFontSize;
+		line-height: 1em;
+		text-transform: uppercase;
+	}
+
+	.tagline {
+		font-size: $taglineFontSize;
+		line-height: 1em;
+		margin: $bigPadding 0;
+
+		&:before, &:after {
+			content: "";
+			border-top: 1px solid black;
+			border-bottom: 1px solid black;
+			display: inline-block;
+			width: 120px;
+			height: 12px;
+			margin: 0 10px;
+		}
+	}
 }
+
+.main {
+	@include size(300px, 500px);
+	margin: $bigPadding auto;
+	background: rgba(0,0,0,0.1);
+	border-radius: 8px;
+}
+
+footer {
+	margin: $bigPadding 0;
+	text-align: center;
+
+	li {
+		margin: 15px 0;
+	}
+
+	a, a:hover {
+		font-family: 'Affect-Bold', sans-serif;
+		font-size: $emailFontSize;
+		line-height: 1em;
+		color:#86b8a5;
+		text-transform: uppercase;
+		text-decoration: none;
+
+		&:hover {
+			border-bottom:3px dashed #86b8a5;
+		}
+	}
+
+	a.twitter {
+
+	}
+}
+
+
