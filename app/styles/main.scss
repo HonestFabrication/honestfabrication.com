@@ -18,16 +18,40 @@ $affectBold: "affect-bold";
     	 url('fonts/cassia-extra-light.ttf') format('truetype');
 }
 
+@mixin fontSize($size) {
+	font-size: $size;
+	line-height: 1em;
+}
+
 /* ---------------- STYLES ---------------- */
 body {
 	font-family: 'CassiaExtraLight', Georgia, serif;
+
+	font-size: 18px;
+
+	@media (max-width: 768px) {
+		font-size: 14px;
+	}
+
+	@media (max-width: 550px) {
+		font-size: 10px;
+	}
 }
 
-$bigPadding: 30px;
+$bigPadding: 1.66em;
 
-$titleFontSize: 72px;
-$taglineFontSize: 28px;
-$emailFontSize: 32px;
+$titleFontSize: 4em;
+$taglineFontSize: 1.5em;
+$emailFontSize: 1.75em;
+
+$taglineLinesHeight: 0.66em;
+
+$tabletScale: 3/4;
+$mobileScale: 0.55;
+
+.container-fluid {
+	padding: 0 10px;
+}
 
 header {
 	margin: $bigPadding 0;
@@ -36,33 +60,92 @@ header {
 	h1 {
 		margin: 0;
 		font-family: 'Affect-Bold', sans-serif;
-		font-size: $titleFontSize;
-		line-height: 1em;
 		text-transform: uppercase;
+		@include fontSize($titleFontSize);
 	}
 
 	.tagline {
-		font-size: $taglineFontSize;
-		line-height: 1em;
 		margin: $bigPadding 0;
+		@include fontSize($taglineFontSize);
 
-		&:before, &:after {
-			content: "";
-			border-top: 1px solid black;
-			border-bottom: 1px solid black;
+		.words {
+			white-space: nowrap;
+			overflow: hidden;
+			text-transform: uppercase;
+		}
+
+		// draw top line at full width and inner line squeezed by padding
+		.lines {
 			display: inline-block;
-			width: 120px;
-			height: 12px;
-			margin: 0 10px;
+			width: $titleFontSize;
+			height: $taglineLinesHeight;
+			border-top: 1px solid black;
+			vertical-align: baseline;
+
+			&:first-child {
+				padding-left: 20px;
+			}
+			&:last-child {
+				padding-right: 20px;
+			}
+
+			.line {
+				@include size(100%, 100%);
+				border-bottom: 1px solid black;
+				display: inline-block;
+				vertical-align: top;
+			}
+		}
+
+		// tagline collapses to table row at small widths so
+		// lines will stretch to fill available space equally
+		@media (max-width: 550px) {
+			display: table;
+			width: 100%;
+
+			.lines {
+				display: table-cell;
+				width: 30%
+			}
+			.words {
+				display: table-cell;
+				width: auto;
+				padding: 0 10px;
+			}
 		}
 	}
 }
 
 .main {
-	@include size(300px, 500px);
+	@include size(250px, 500px);
 	margin: $bigPadding auto;
 	background: rgba(0,0,0,0.1);
 	border-radius: 8px;
+	box-sizing: border-box;
+
+	padding: 15px;
+	text-align: center;
+
+	font-size: 1rem;
+	line-height: 1.5rem;
+
+	li {
+		background: rgba(0,0,0,0.1);
+		border-radius: 8px;
+		width: 32.5%;
+		padding: 0 !important;
+	}
+
+	// auto-size box and make list items stack up at small widths
+	@media (max-width: 550px) {
+		width: auto;
+		margin: $bigPadding;
+
+		li {
+			display: block;
+			width: 100%;
+		}
+	}
 }
 
 footer {
